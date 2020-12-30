@@ -9,6 +9,8 @@ The results on the page above are real SSH login attempts to web server.
 
 Right now this only runs on Ubuntu, any version. Git clone this repo, add Virus Total and Shodan API keys then run `./comb-start.sh`
 
+Live demo: https://notgoogle.com/report/
+
 ## Virus Total API
 Generating the Virus Total API keys: 
 Login or create an account on Virus total, once logged in click on your name in the top right > API key.
