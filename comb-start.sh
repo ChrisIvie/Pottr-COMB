@@ -7,10 +7,10 @@ sort pees.txt | uniq -c | sort | tail -75 | awk '{print $(NF-0)}' > shortpees.tx
 #Move old database into backup folder
 mv ./pees.db ./db-backup/pees_$now.db
 echo 'Submitting IPs to Virus Total (This will take awhile)'
-python3 ./ip-report.py 
+python3 ./virustotal-report.py 
 sleep 3
 echo 'Submitting IPs to Shodan'
-python3 ./ip-report-shodan.py 
+python3 ./shodan-report.py 
 echo 'Starting COMB web interface'
 php -S 127.0.0.1:80 -t ./report &
 
