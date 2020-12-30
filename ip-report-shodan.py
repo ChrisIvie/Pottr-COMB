@@ -17,7 +17,7 @@ c.execute("CREATE TABLE shodanreport (id text, shodanurl json, server json, doma
 
 for l in f:
     l = l.rstrip()
-    shodankey = 'zRdD3XqbZheLEjl645OMZWv6Uvb1hU1e'
+    shodankey = '<API KEY>'
     url = 'https://api.shodan.io/shodan/host/' + '%s' % l + '?key=' + shodankey
     print(url)
     params = {'apikey':'zRdD3XqbZheLEjl645OMZWv6Uvb1hU1e' }

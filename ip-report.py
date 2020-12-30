@@ -18,7 +18,7 @@ c.execute("CREATE TABLE peesreport (id text, scandate json, scanid json, permali
 for l in f:
     l = l.rstrip()
     url = 'https://www.virustotal.com/vtapi/v2/url/report'
-    params = {'apikey':'accd7029900feab997c24eb49cec0fbf72972a51d18c7f791fce132f27d5510e','allinfo': 'true' ,'resource':'%s' % l }
+    params = {'apikey':'<APIKEY>','allinfo': 'true' ,'resource':'%s' % l }
     time.sleep(16) #Virus total API rate limits 4 requests per minute
     response = requests.get(url, params=params)
     print(response) #print response 
