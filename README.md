@@ -1,6 +1,10 @@
 # COMB by Pottr
 Real time IP analysis/threat detection using the Virus Total and Shodan API. Included with a full web GUI and perfect for running in the background. 
 
+Demo of Web interface: https://notgoogle.com/report/index.php
+
+The results on the page above are real SSH login attempts to web server.
+
 ## Installation
 
 Right now this only runs on Ubuntu, any version. Git clone this repo, add Virus Total and Shodan API keys then run `./comb-start.sh`
