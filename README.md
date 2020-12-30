@@ -2,8 +2,7 @@
 Real time IP analysis/threat detection using the Virus Total and Shodan API. Included with a full web GUI and perfect for running in the background. 
 
 ## Installation
-
-Right now this only runs on Ubuntu, any version. Git clone this repo and run `./comb-start.sh`
+Right now this only runs on Ubuntu, any version. Git clone this repo, add Virus Total and Shodan API keys then run `./comb-start.sh`
 
 ## Virus Total API
 Generating the Virus Total API keys: 
