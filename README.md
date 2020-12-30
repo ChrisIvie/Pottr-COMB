@@ -3,31 +3,28 @@ Real time IP analysis/threat detection using the Virus Total and Shodan API. Inc
 
 ## Installation
 
+Right now this only runs on Ubuntu, any version. Git clone this repo and run `./comb-start.sh`
 
-To use this tool please run the following command in your working folder:
- ```bash 
-egrep 'Failed password for invalid' /var/log/auth.log | awk '{print $13}' 
-```
+## Virus Total API
 Generating the Virus Total API keys: 
 Login or create an account on Virus total, once logged in click on your name in the top right > API key.
+
+You will place this key in virustotal-report.py. 
 
 Note: This API is limited, 4 request per minute.
 
 
 ![Alt text](https://i.imgur.com/fa83tXm.png)
 
-Once you have replaced the API key in ip-scan.py you will simply run ``` python3 ip-scan.py ```
+## Shodan API 
+
+Head over to https://developer.shodan.io/, create an account and you will see 'Show API Key' at the top of the page, once you have the API key place it in shodan-report.py
 
 ## Web interface
 
-![Alt text](https://i.imgur.com/AICiY9c.png)
+![Alt text](https://i.imgur.com/7nelWAH.png)
 
-
-The failed ssh folder contains the web interface, you will usually place this folder in /var/www/html/ or wherever you have your website files hosted. 
-
-Note: The script generates json files in /var/www/html/failed-ssh/json/
-
-
+PHP has a built in simple HTTP server, currently binded to 127.0.0.1:80 in  `./comb-start.sh` 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. (I know the Web interface is ugly, i'll be adjusting this) 
