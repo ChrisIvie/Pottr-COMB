@@ -1,4 +1,4 @@
-# COMB by Pottr
+# COMB by Pottr.io
 Real time IP analysis/threat detection using the Virus Total and Shodan API. Included with a full web GUI and perfect for running in the background. 
 
 Demo of Web interface: https://notgoogle.com/report/index.php
