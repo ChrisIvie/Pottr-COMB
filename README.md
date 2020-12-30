@@ -6,14 +6,12 @@ Demo of Web interface: https://notgoogle.com/report/index.php
 The results on the page above are real SSH login attempts to web server.
 
 ## Installation
-<<<<<<< HEAD
+
 
 Right now this only runs on Ubuntu, any version. Git clone this repo, add Virus Total and Shodan API keys then run `./comb-start.sh`
 
 Live demo: https://notgoogle.com/report/
-=======
-Right now this only runs on Ubuntu, any version. Git clone this repo, add Virus Total and Shodan API keys then run `./comb-start.sh`
->>>>>>> 1a4a3e7a1e4894cc6e22eceeed5c107e42aa4d0d
+
 
 ## Virus Total API
 Generating the Virus Total API keys: 
