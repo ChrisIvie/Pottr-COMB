@@ -3,7 +3,7 @@ Real time IP analysis/threat detection using the Virus Total and Shodan API. Inc
 
 Demo of Web interface: https://notgoogle.com/report/index.php
 
-The results on the page above are real SSH login attempts to web server.
+The results on the page above are real SSH login attempts to my public web server.
 
 ## Installation
 
