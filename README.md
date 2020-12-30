@@ -1,12 +1,8 @@
-# Failed SSH logins
-Ever wonder who's trying to brute force login into your server? 
-
-This tool sends these IP's to the Virus total API. 
-
-The result is a few different things such as: 
-ISP owner, malware positives, hashes of malware positives, known hostnames hosting malware and origin country. 
+# COMB by Pottr
+Real time IP analysis/threat detection using the Virus Total and Shodan API. Included with a full web GUI and perfect for running in the background. 
 
 ## Installation
+
 
 To use this tool please run the following command in your working folder:
  ```bash 
