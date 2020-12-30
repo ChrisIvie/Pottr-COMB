@@ -20,7 +20,7 @@ for l in f:
     shodankey = '<API KEY>'
     url = 'https://api.shodan.io/shodan/host/' + '%s' % l + '?key=' + shodankey
     print(url)
-    params = {'apikey':'zRdD3XqbZheLEjl645OMZWv6Uvb1hU1e' }
+    params = {'apikey':'<APIKEY>' }
     time.sleep(12)
     response = requests.get(url, params=params)
     print(response)
