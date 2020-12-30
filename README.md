@@ -32,6 +32,8 @@ Head over to https://developer.shodan.io/, create an account and you will see 'S
 
 PHP has a built in simple HTTP server, currently binded to 127.0.0.1:80 in  `./comb-start.sh` 
 
+Note: The web UI can be located in the ./report folder, currently 75 results are loaded in from the database, possiblily repeats. Each result "card" uses VT and Shodan analysis results. Green = Virus Total. Yellow = Shodan.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. (I know the Web interface is ugly, i'll be adjusting this) 
 
