@@ -12,7 +12,7 @@ sleep 3
 echo 'Submitting IPs to Shodan'
 python3 ./shodan-report.py 
 echo 'Starting COMB web interface'
-php -S 127.0.0.1:80 -t ./report &
+php -S 127.0.0.1:8080 -t ./report &
 
 
 

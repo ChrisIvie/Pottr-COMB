@@ -8,14 +8,20 @@ The results on the page above are real SSH login attempts to my public web serve
 ## Installation
 
 
-Right now this only runs on Ubuntu, any version. Git clone this repo, add Virus Total and Shodan API keys then run `./comb-start.sh`
+Right now this only runs on Ubuntu, any version.
+Note: This script requires PHP
+ 
+1. Git clone this repo
+2. Insert Virus Total API key into ` virustotal-report.py `.
+3. Insert Shodan API key into `shodan-report.py` 
+4. run `pip install -r requirements.txt`
+5. run `./comb-start.sh`
 
 
 ## Virus Total API
 Generating the Virus Total API keys: 
-Login or create an account on Virus total, once logged in click on your name in the top right > API key.
-
-You will place this key in virustotal-report.py. 
+1. Login or create an account on Virus total
+2. Once logged in click on your name in the top right > API key.
 
 Note: This API is limited, 4 request per minute.
 
@@ -23,8 +29,11 @@ Note: This API is limited, 4 request per minute.
 ![Alt text](https://i.imgur.com/fa83tXm.png)
 
 ## Shodan API 
+1. Head over to https://developer.shodan.io/ 
+2. Create an account
+3. you will see 'Show API Key' at the top of the page.
 
-Head over to https://developer.shodan.io/, create an account and you will see 'Show API Key' at the top of the page, once you have the API key place it in shodan-report.py
+![Alt text](https://i.imgur.com/kDYS08W.png)
 
 ## Web interface
 
