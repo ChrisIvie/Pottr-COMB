@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+
+<!-- Image and text -->
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-warning" href="#">Pottr</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav text-warning">
+        <li class="nav-item">
+          <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+        </li>
+        
+        
+        <li class="nav-item dropdown text-light">
+          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Features
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">What's Pottr?</a></li>
+            <li><a class="dropdown-item" href="#">Simple IDS webapp: COMB</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item disabled" href="#">Live CVE updates (coming soon)</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" aria-current="page" href="#">About</a>
+        </li>
+        <li class="nav-item">
+        <li class="nav-item">
+        </li>
+       
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<img width="50px" src="svg/honey.svg"><h1>COMB beta</h1>
+<?php
+//$dboutput = shell_exec('ls -lart ../../ | grep pees.db');
+//$strip = substr($dboutput, 31);
+//echo "Database info:" . "<pre>$strip</pre>";
+?>
+
+<h3>
+Pottr:<small class="container-fluid text-muted">Real time threats</small>
+</h3>
+
+
+<?php 
+/// Database access
+$db = new SQLite3('../pees.db');
+
+$res = $db->query('SELECT DISTINCT * FROM peesreport');
+$res2 = $db->query('SELECT * FROM shodanreport');
+
+$counter = 0;
+$max = 75;
+while ($row2 = $res2->fetchArray()) {
+  //echo $row2['server'];
+
+  
+
+
+while ($row = $res->fetchArray($counter < $max)) {
+    $counter++;
+    $bitdif = json_decode($row['BitDefenderresult']);
+    $kasdif = json_decode($row['Kasperskyresult']);
+    $spamdif = json_decode($row['Spamhausresult']);
+
+    
+
+
+    ///// Curl for ip geo
+      //$ch = curl_init();
+      //$url = 'http://ip-api.com/json/' . $row['id'];
+      //curl_setopt($ch, CURLOPT_URL, $url);
+      //curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      //$output = curl_exec($ch);
+      //curl_close($ch);
+      
+      //$outdecode = json_decode($output);
+  
+    
+      
+    
+
+    echo "<br>";
+    echo '<div class="card bg-dark text-white container-md">';
+    echo '<div class="card-header bg-dark text-white">';
+    echo "<h3>" . "<kbd>" . $row['id'] . "</kbd>" . "</h3>";
+    echo '</div>';
+      echo '<div class="card-body bg-dark text-white">';
+      echo '<span class="badge rounded-pill bg-success">'. 'Total scans: ' . $row['totalscans'] .'</span>';
+      echo '<span class="badge rounded-pill bg-success">'. 'BitDefender Result: ' . $bitdif->{'result'} .'</span>';
+      echo '<span class="badge rounded-pill bg-success">'. 'Kaspersky Result: ' . $kasdif->{'result'} .'</span>';
+      echo '<span class="badge rounded-pill bg-success">'. 'SpamHaus result: ' . $spamdif->{'result'} .'</span>';
+      //echo $bitdif['result'];
+      if ($row['id'] == $row2['id']){
+        //echo $row['id'];
+        //echo $row2['id'];
+        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Host sever : ' . $row2['server'] .'</span>';
+        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Host sever : ' . $row2['id'] .'</span>';
+        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Last update : ' . $row2['lastupdate'] .'</span>';
+        
+        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'CVE : ' . ($row2['vulns']) .'</span>';
+
+        
+        echo '<br>';
+        
+
+      }
+      echo '<hr>';
+
+
+  
+      //echo '<span class="badge rounded-pill bg-success">'. 'Result: ' . $outdecode->{'status'} .'</span>';
+
+
+
+      //echo $bitdif->{'result'};
+      //echo $kasdif->{'result'};
+      //echo $spamdif->{'result'};
+
+      
+         
+      echo '<p>';
+      
+        
+
+      //echo '<p class="card-text">'. '<kbd>' . $output . '</kbd>' . '</p>';
+      
+      echo '<a href=' . $row['permalink'].  'class="btn btn-primary btn-dark btn-outline-warning">Virus Total Scan</a>';
+      echo '<div class="card-footer text-muted">';
+      echo "VT Scan date: " . $row['scandate'];
+      echo '</div>';
+      echo '</div>';
+      echo '</div>';
+      echo '<br>';
+      ////// If statement for more than 7 positives
+      if ($row['positives'] > 7) {
+        echo "<br>";
+        echo '<div class="card bg-dark text-white container-md">';
+        echo '<div class="card-header bg-dark text-white">';
+          echo '<div class="alert alert-danger" role="alert">';
+            echo  $row['positives'] . " positives found.";
+          echo '</div>';
+          echo "<h3>" . "<kbd>" . $row['id'] . "</kbd>" . "</h3>";
+          echo '</div>';
+          echo '<div class="card-body bg-dark text-white">';
+          echo '<span class="badge rounded-pill bg-success">'. 'Total scans: ' . $row['totalscans'] .'</span>';
+          echo '<span class="badge rounded-pill bg-warning text-dark">'. 'BitDefender Result: ' . $bitdif->{'result'} .'</span>';
+          echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Kaspersky Result: ' . $kasdif->{'result'} .'</span>';
+          echo '<span class="badge rounded-pill bg-warning text-dark">'. 'SpamHaus result: ' . $spamdif->{'result'} .'</span>';
+          echo '<hr>';
+          echo '<button class="btn btn-secondary btn-dark btn-outline-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'. $counter . '" aria-expanded="false" aria-controls="collapse'. $counter . '">';
+            echo "IP location";
+          echo "</button>";
+      echo '</p>';
+        echo '<div class="collapse" id="collapse'. $counter . '">';
+          echo '<div class="card card-body bg-dark text-white">';
+          echo "<p>" . "Country: ". "<mark>" . $row2['countryname'] . "</mark>" . "</p>" ;
+          echo "<p>" . "Latitude: " . "<mark>" . $row2['latitude'] . "</mark>" . "</p>";
+          echo "<p>" . "Longitude: " . "<mark>" . $row2['longitude'] . "</mark>" . "</p>";
+          echo '</div>';
+        echo '</div>';
+            echo '<a href=' . $row['permalink'].  'class="btn btn-primary btn-dark btn-outline-warning">Virus Total Scan</a>';
+            echo '<div class="card-footer text-muted">';
+            echo "VT Scan date: " . $row['scandate'];
+            echo '</div>';
+          echo '</div>';
+        echo '</div>';
+          echo '<br>';
+        }
+          
+      }
+    
+     
+
+ 
+    
+}
+
+echo "<p>" . "<mark>". $counter . "</mark>" . " IP's analyzed" . "</p>";
+
+?>
+</div>
+</table>
+</div>
