@@ -11,8 +11,8 @@ python3 ./virustotal-report.py
 sleep 3
 echo 'Submitting IPs to Shodan'
 python3 ./shodan-report.py 
-echo 'Starting COMB web interface'
-php -S 127.0.0.1:8080 -t ./report &
+#echo 'Starting COMB web interface'
+#php -S 127.0.0.1:8080 -t ./report &
 
 
 

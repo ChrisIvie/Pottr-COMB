@@ -7,9 +7,13 @@ The results on the page above are real SSH login attempts to my public web serve
 
 ## Installation
 
+Requirements: 
+PHP 7+ 
+php 7 sqlite
+pip
 
-Right now this only runs on Ubuntu, any version.
-Note: This script requires PHP
+
+Note: Default log location: /var/log/auth.log
  
 1. Git clone this repo
 2. Insert Virus Total API key into ` virustotal-report.py `.
@@ -42,6 +46,17 @@ Note: This API is limited, 4 request per minute.
 PHP has a built in simple HTTP server, currently binded to 127.0.0.1:80 in  `./comb-start.sh` 
 
 Note: The web UI can be located in the ./report folder, currently 75 results are loaded in from the database, possiblily repeats. Each result "card" uses VT and Shodan analysis results. Green = Virus Total. Yellow = Shodan.
+
+### Files
+
+    .
+    ├── report                  # Index.php, css/ js/
+    ├── comb-start.sh           # Bash script for starting Web server
+    ├── requirements.txt        # Required python packages         
+    ├── shodan-report.py        # Place shodan API key in this file
+    ├── virustotal-report.py    # Place Virus Total API key in this file
+    └── README.md
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. (I know the Web interface is ugly, i'll be adjusting this) 

@@ -19,9 +19,8 @@ for l in f:
     shodankey = '<API KEY>'
     url = 'https://api.shodan.io/shodan/host/' + '%s' % l + '?key=' + shodankey
     print(url)
-    params = {'apikey':'<APIKEY>' }
     time.sleep(12)
-    response = requests.get(url, params=params)
+    response = requests.get(url)
     print(response)
     #Virus total API rate limits 4 requests per minute
     try:
