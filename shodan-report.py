@@ -23,49 +23,9 @@ for l in f:
     response = requests.get(url)
     print(response)
     #Virus total API rate limits 4 requests per minute
-    try:
-        shodata = response.json()
-        print(shodata['last_update'])
-
-        print(shodata['data'][0]['domains'])
-        print(shodata['data'][0]['data'])
-        print(shodata['data'][1]['product'])
-        print(shodata['data'][1]['data'])
-
-        print(shodata['data']['timestamp'])
-        #print(shodata['data'][1]['http']['redirects'])
-        print(shodata['data'][1]['http']['server'])
-        print(shodata['country_name'])
-
-        print(shodata['ports'])
-        print(shodata['last_update'])
-        print(shodata['hostnames'])
-        print(shodata['org'])
-        print(shodata['longitude'])
-        print(shodata['vulns'])
-
-    except:
-        pass
-    
 
     print(l)
-    #print(data['scan_date'])
-    #print(data['scans'])
-    #print(data['scan_id'])
-    #print(data['permalink'])
-    #print(data['filescan_id'])
-    #print(data['positives'])
-    #print(data['total'])
-    #print(data['scans']['BitDefender'])
-    #print(data['scans']['Kaspersky'])
-    #print(data['scans']['Spamhaus'])
-    #print(data['verbose_msg'])
-
-    #print(data['detected_urls'][0]['url'])
-    #print(data['resolutions'][0]['hostname'])
-    #print(data['resolutions'][0]['last_resolved'])
-
-    #print(data['detected_urls'])
+    
     for k,v in shodata.items():
         try:
         #print(k)

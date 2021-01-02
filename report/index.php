@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -73,11 +74,11 @@ Pottr:<small class="container-fluid text-muted">Real time threats</small>
 /// Database access
 $db = new SQLite3('../pees.db');
 
-$res = $db->query('SELECT DISTINCT * FROM peesreport');
+$res = $db->query('SELECT DISTINCT * FROM peesreport GROUP BY id');
 $res2 = $db->query('SELECT * FROM shodanreport');
 
 $counter = 0;
-$max = 75;
+$max = 100;
 while ($row2 = $res2->fetchArray()) {
   //echo $row2['server'];
 
@@ -92,19 +93,6 @@ while ($row = $res->fetchArray($counter < $max)) {
 
     
 
-
-    ///// Curl for ip geo
-      //$ch = curl_init();
-      //$url = 'http://ip-api.com/json/' . $row['id'];
-      //curl_setopt($ch, CURLOPT_URL, $url);
-      //curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      //$output = curl_exec($ch);
-      //curl_close($ch);
-      
-      //$outdecode = json_decode($output);
-  
-    
-      
     
 
     echo "<br>";
@@ -124,8 +112,17 @@ while ($row = $res->fetchArray($counter < $max)) {
         echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Host sever : ' . $row2['server'] .'</span>';
         echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Host sever : ' . $row2['id'] .'</span>';
         echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Last update : ' . $row2['lastupdate'] .'</span>';
-        
-        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'CVE : ' . ($row2['vulns']) .'</span>';
+        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Country : ' . $row2['countryname'] .'</span>';
+        echo '<span class="badge rounded-pill bg-warning text-dark">'. 'Known Domains : ' . $row2['domains'] .'</span>';
+
+
+      
+          $myArray = json_decode($row2['vulns'], true);
+          #echo $myArray;   
+          foreach($myArray as $result) {
+            echo '<span class="badge rounded-pill bg-warning text-dark">'. 'CVE : ' . ($result) .'</span>';
+          }
+          #echo '<span class="badge rounded-pill bg-warning text-dark">'. 'CVE : ' . ($myArray) .'</span>';
 
         
         echo '<br>';
@@ -133,25 +130,10 @@ while ($row = $res->fetchArray($counter < $max)) {
 
       }
       echo '<hr>';
-
-
-  
-      //echo '<span class="badge rounded-pill bg-success">'. 'Result: ' . $outdecode->{'status'} .'</span>';
-
-
-
-      //echo $bitdif->{'result'};
-      //echo $kasdif->{'result'};
-      //echo $spamdif->{'result'};
-
       
          
       echo '<p>';
-      
-        
-
-      //echo '<p class="card-text">'. '<kbd>' . $output . '</kbd>' . '</p>';
-      
+            
       echo '<a href=' . $row['permalink'].  'class="btn btn-primary btn-dark btn-outline-warning">Virus Total Scan</a>';
       echo '<div class="card-footer text-muted">';
       echo "VT Scan date: " . $row['scandate'];
