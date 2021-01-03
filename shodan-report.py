@@ -25,6 +25,8 @@ for l in f:
     #Virus total API rate limits 4 requests per minute
 
     print(l)
+    shodata = response.json()
+
     
     for k,v in shodata.items():
         try:

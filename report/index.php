@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 </head>
@@ -31,18 +31,14 @@
         <li class="nav-item">
           <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
         </li>
-        
-        
         <li class="nav-item dropdown text-light">
-          <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Features
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">What's Pottr?</a></li>
-            <li><a class="dropdown-item" href="#">Simple IDS webapp: COMB</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item disabled" href="#">Live CVE updates (coming soon)</a></li>
-          </ul>
+          <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Features</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">What's Pottr?</a></li>
+              <li><a class="dropdown-item" href="#">Simple IDS webapp: COMB</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item disabled" href="#">Live CVE updates (coming soon)</a></li>
+            </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" aria-current="page" href="#">About</a>
@@ -74,8 +70,11 @@ Pottr:<small class="container-fluid text-muted">Real time threats</small>
 /// Database access
 $db = new SQLite3('../pees.db');
 
-$res = $db->query('SELECT DISTINCT * FROM peesreport GROUP BY id');
+$res = $db->query('SELECT DISTINCT * FROM peesreport GROUP BY id ORDER BY currenttime DESC LIMIT 50');
 $res2 = $db->query('SELECT * FROM shodanreport');
+
+
+
 
 $counter = 0;
 $max = 100;
@@ -86,6 +85,7 @@ while ($row2 = $res2->fetchArray()) {
 
 
 while ($row = $res->fetchArray($counter < $max)) {
+    
     $counter++;
     $bitdif = json_decode($row['BitDefenderresult']);
     $kasdif = json_decode($row['Kasperskyresult']);
@@ -99,6 +99,7 @@ while ($row = $res->fetchArray($counter < $max)) {
     echo '<div class="card bg-dark text-white container-md">';
     echo '<div class="card-header bg-dark text-white">';
     echo "<h3>" . "<kbd>" . $row['id'] . "</kbd>" . "</h3>";
+    echo "<h3>" . "<mark>" . "Date of scan: " . $row['currenttime'] . "</mark>" . "</h3>";
     echo '</div>';
       echo '<div class="card-body bg-dark text-white">';
       echo '<span class="badge rounded-pill bg-success">'. 'Total scans: ' . $row['totalscans'] .'</span>';
@@ -176,7 +177,7 @@ while ($row = $res->fetchArray($counter < $max)) {
         echo '</div>';
           echo '<br>';
         }
-          
+        
       }
     
      

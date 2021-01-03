@@ -1,4 +1,5 @@
 #!/bin/bash
+pkill php
 now=$(date +"%m_%d_%Y_%T")
 egrep 'Failed password for invalid' /var/log/auth.log | awk '{print $13}' > pees.txt
 # Remove duplicate IPs, sort by most login attempts, get the highest 75 login attempts
