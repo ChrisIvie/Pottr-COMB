@@ -20,10 +20,11 @@
 <body>
 
 
+
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand text-warning" href="#">Pottr</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,59 +33,76 @@
           <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item dropdown text-light">
-          <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Features</a>
+          <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Most recent scans</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">What's Pottr?</a></li>
-              <li><a class="dropdown-item" href="#">Simple IDS webapp: COMB</a></li>
-              <li><hr class="dropdown-divider"></li>
+             <?php 
+                      /// Database access
+                      $db = new SQLite3('../pees.db');
+
+                      /// Count number of rows from Virus Total table, check if empty, print count
+                      $rescount = $db->query("SELECT COUNT(*) as count FROM peesreport GROUP BY id ORDER BY currenttime DESC");
+                      if(!empty($rescount)){
+                        $sqlcountarrayvt = $rescount->fetchArray();
+                        $numRowsvt = $sqlcountarrayvt['count'];
+                        //echo "Virus Total results: " . $numRowsvt;
+                        //echo 'Virus total results <span class="badge bg-secondary">' . $numRowsvt . '</span>';
+                        //echo '<a class="nav-link text-light" aria-current="page" href="#">'. 'Virus Total: ' . $numRowsvt .'</a></li>';
+                        echo '<li><a class="dropdown-item" href="#">Virus Total: ' . $numRowsvt . '</a></li>';
+
+                      }
+                      echo '<li class="nav-item">';
+                      $rescount2 = $db->query("SELECT COUNT(*) as count FROM shodanreport");
+                      if(!empty($rescount2)){
+                        // Variable is not empty and is set
+                        $sqlcountarrayshodan = $rescount2->fetchArray();
+                        $numRowsshodan = $sqlcountarrayshodan['count'];
+                        echo '<li><a class="dropdown-item" href="#">Shodan: ' . $numRowsshodan . '</a></li>';
+
+                        //echo '<a class="nav-link text-light" aria-current="page" href="#">'. 'Shodan: ' . $numRowsshodan .'</a>';
+                      }
+
+                      ?>
+                 <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item disabled" href="#">Live CVE updates (coming soon)</a></li>
+              
+
             </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" aria-current="page" href="#">About</a>
         </li>
-        <li class="nav-item">
-        <li class="nav-item">
-        </li>
+
+        
        
       </ul>
     </div>
   </div>
 </nav>
 
-
-
-<img width="50px" src="svg/honey.svg"><h1>COMB beta</h1>
-<?php
-//$dboutput = shell_exec('ls -lart ../../ | grep pees.db');
-//$strip = substr($dboutput, 31);
-//echo "Database info:" . "<pre>$strip</pre>";
-?>
-
 <h3>
 Pottr:<small class="container-fluid text-muted">Real time threats</small>
 </h3>
-
-
+<img width="50px" class="rounded mx-auto" src="svg/honey.svg"><h1>COMB beta</h1>
 <?php 
 /// Database access
 $db = new SQLite3('../pees.db');
 
-$res = $db->query('SELECT DISTINCT * FROM peesreport GROUP BY id ORDER BY currenttime DESC LIMIT 50');
+
+
+$res = $db->query('SELECT * FROM peesreport GROUP BY id ORDER BY currenttime DESC');
 $res2 = $db->query('SELECT * FROM shodanreport');
 
 
 
-
 $counter = 0;
-$max = 100;
-while ($row2 = $res2->fetchArray()) {
+//$max = 100;
   //echo $row2['server'];
 
-  
+while ($row2 = $res2->fetchArray($counter < $numRowsshodan)) { 
 
 
-while ($row = $res->fetchArray($counter < $max)) {
+
+while ($row = $res->fetchArray($counter < $numRowsvt)) {
     
     $counter++;
     $bitdif = json_decode($row['BitDefenderresult']);
